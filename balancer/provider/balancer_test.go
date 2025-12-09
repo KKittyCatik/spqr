@@ -154,13 +154,13 @@ func TestMaxFitOnShard(t *testing.T) {
 // TestMoveMaxPossible tests the moveMaxPossible method
 func TestMoveMaxPossible(t *testing.T) {
 	tests := []struct {
-		name               string
-		threshold          []float64
-		shardMetrics       []*ShardMetrics
-		shardIdToMetrics   map[string]*ShardMetrics
-		krId               string
-		krShardId          string
-		expectedShardId    string
+		name                string
+		threshold           []float64
+		shardMetrics        []*ShardMetrics
+		shardIdToMetrics    map[string]*ShardMetrics
+		krId                string
+		krShardId           string
+		expectedShardId     string
 		expectedMaxKeyCount int
 	}{
 		{
@@ -255,18 +255,18 @@ func TestMoveMaxPossible(t *testing.T) {
 // TestGetShardToMoveTo tests the getShardToMoveTo method
 func TestGetShardToMoveTo(t *testing.T) {
 	tests := []struct {
-		name              string
-		threshold         []float64
-		shardMetrics      []*ShardMetrics
-		shardIdToMetrics  map[string]*ShardMetrics
-		dsToKeyRanges     map[string][]*kr.KeyRange
-		dsToKrIdx         map[string]map[string]int
-		krToDs            map[string]string
-		krId              string
-		krShardId         string
-		keyCountToMove    int
-		expectedShardId   string
-		expectedSuccess   bool
+		name             string
+		threshold        []float64
+		shardMetrics     []*ShardMetrics
+		shardIdToMetrics map[string]*ShardMetrics
+		dsToKeyRanges    map[string][]*kr.KeyRange
+		dsToKrIdx        map[string]map[string]int
+		krToDs           map[string]string
+		krId             string
+		krShardId        string
+		keyCountToMove   int
+		expectedShardId  string
+		expectedSuccess  bool
 	}{
 		{
 			name:      "move to adjacent shard - only one adjacent shard fits",
@@ -319,11 +319,11 @@ func TestGetShardToMoveTo(t *testing.T) {
 				"kr1": "ds1",
 				"kr2": "ds1",
 			},
-			krId:             "kr1",
-			krShardId:        "source",
-			keyCountToMove:   5,
-			expectedShardId:  "shard2",
-			expectedSuccess:  true,
+			krId:            "kr1",
+			krShardId:       "source",
+			keyCountToMove:  5,
+			expectedShardId: "shard2",
+			expectedSuccess: true,
 		},
 		{
 			name:      "move to non-adjacent shard when both adjacent shards are full",
@@ -384,11 +384,11 @@ func TestGetShardToMoveTo(t *testing.T) {
 				"kr1": "ds1",
 				"kr2": "ds1",
 			},
-			krId:             "kr1",
-			krShardId:        "source",
-			keyCountToMove:   5,
-			expectedShardId:  "shard2",
-			expectedSuccess:  true,
+			krId:            "kr1",
+			krShardId:       "source",
+			keyCountToMove:  5,
+			expectedShardId: "shard2",
+			expectedSuccess: true,
 		},
 		{
 			name:      "cannot move keys - no shard has capacity",
@@ -430,11 +430,11 @@ func TestGetShardToMoveTo(t *testing.T) {
 				"kr0": "ds1",
 				"kr1": "ds1",
 			},
-			krId:             "kr1",
-			krShardId:        "source",
-			keyCountToMove:   10,
-			expectedShardId:  "",
-			expectedSuccess:  false,
+			krId:            "kr1",
+			krShardId:       "source",
+			keyCountToMove:  10,
+			expectedShardId: "",
+			expectedSuccess: false,
 		},
 	}
 
