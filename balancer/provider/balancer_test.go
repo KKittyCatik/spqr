@@ -105,7 +105,7 @@ func TestMaxFitOnShard(t *testing.T) {
 			shardMetrics: &ShardMetrics{
 				MetricsTotal: []float64{20.0, 200.0},
 			},
-			expectedCount: 64, // 0.8 * ((100 - 20) / (10/10)) = 64 for cpu, but space gives 6, so max is 64
+			expectedCount: 64, // cpu: 0.8*((100-20)/(10/10)) = 64, space: 0.8*((1000-200)/(100/10)) = 64, returns max across all metrics
 		},
 		{
 			name:       "no room for keys - shard at capacity",
@@ -125,7 +125,7 @@ func TestMaxFitOnShard(t *testing.T) {
 			shardMetrics: &ShardMetrics{
 				MetricsTotal: []float64{900.0, 50.0},
 			},
-			expectedCount: 80, // cpu: 0.8*((1000-900)/(10/10)) = 80, space: 0.8*((100-50)/(10/10)) = 40, max is 80
+			expectedCount: 80, // cpu: 0.8*((1000-900)/(10/10)) = 80, space: 0.8*((100-50)/(10/10)) = 40, returns max across all metrics
 		},
 		{
 			name:       "multiple metrics - returns max",
@@ -135,7 +135,7 @@ func TestMaxFitOnShard(t *testing.T) {
 			shardMetrics: &ShardMetrics{
 				MetricsTotal: []float64{100.0, 100.0},
 			},
-			expectedCount: 128, // cpu: 0.8*((200-100)/(20/10)) = 80, space: 0.8*((500-100)/(25/10)) = 128, max is 128
+			expectedCount: 128, // cpu: 0.8*((200-100)/(20/10)) = 40, space: 0.8*((500-100)/(25/10)) = 128, returns max across all metrics
 		},
 	}
 
