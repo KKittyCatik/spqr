@@ -413,6 +413,16 @@ func (cl *SimpleSessionParamHandler) SetStartupParams(m map[string]string) {
 }
 
 func NewSimpleHandler(t string, show_notice bool, ds string, defaultRouteBehaviour string) SessionParamsHolder {
+	activeParams := map[string]string{
+		SPQR_DISTRIBUTION:            "default",
+		SPQR_DEFAULT_ROUTE_BEHAVIOUR: defaultRouteBehaviour,
+	}
+
+	// Initialize prefer_engine from config if set
+	if preferEngine := config.RouterConfig().Qr.PreferEngine; preferEngine != "" {
+		activeParams[SPQR_PREFERRED_ENGINE] = preferEngine
+	}
+
 	return &SimpleSessionParamHandler{
 		beginTxParamSet:   map[string]string{},
 		localTxParamSet:   map[string]string{},
@@ -420,10 +430,7 @@ func NewSimpleHandler(t string, show_notice bool, ds string, defaultRouteBehavio
 
 		startupParameters: map[string]string{},
 
-		activeParamSet: map[string]string{
-			SPQR_DISTRIBUTION:            "default",
-			SPQR_DEFAULT_ROUTE_BEHAVIOUR: defaultRouteBehaviour,
-		},
+		activeParamSet:        activeParams,
 		defaultTsa:            t,
 		showNoticeMessages:    show_notice,
 		defaultCommitStrategy: ds,
